@@ -97,7 +97,7 @@ module.exports = {
 
 ### 5. Create a file in your store directory called `index.js`
 
-In your newly created `store/index.js` file you'll import `Vue` so that you can utilize your new plugin that has been injected into the `Vue` instance. Once this is done, create your Vuex store's state, which will contain an empty array of products by default. Next, you will create your store's actions, which will contain a special action specific to Nuxt.js - [nuxtServerInit()](https://nuxtjs.org/guide/vuex-store/#the-nuxtserverinit-action): This action gets called and fills your store with data on the server-side before rendering. This action is asynchronous and will wait for the list of products to be returned from the Commerce.js API. Upon returned results, the action will commit the product data by calling the `setProducts` mutation and passing `products.data`, setting your state's products to the returned products list. The last little piece for the store is to write a getter that simply returns the state's list of products when called from your component. 
+In your newly created `store/index.js` file you'll import `Vue` so that you can utilize your new plugin that has been injected into the `Vue` instance. Once this is done, create your Vuex store's state, which will contain an empty array of products by default. Next, you will create your store's actions, which will contain a special action specific to Nuxt.js - [nuxtServerInit()](https://nuxtjs.org/guide/vuex-store/#the-nuxtserverinit-action): This action gets called and fills your store with data on the server-side before rendering. This action is asynchronous and will wait for the list of products to be returned from the Commerce.js SDK. Upon returned results, the action will commit the product data by calling the `setProducts` mutation and passing `products.data`, setting your state's products to the returned products list. The last little piece for the store is to write a getter that simply returns the state's list of products when called from your component. 
 
 ```js
 // store/index.js
@@ -228,9 +228,10 @@ Nice work, you've successfully listed your products out using Nuxt.js.
 Let's review what we have accommplished in this guide.
 
 * Created a Chec account and added products
-* 
-*
-*
+* Initialized a Nuxt application
+* Injected a simple Vue plugin utilizing Commerce.js SDK
+* Created a simple Vuex store and rendered your data server-side using nuxtServerInit()
+* Listed your products in your Nuxt application
 
 ## Built With
 
