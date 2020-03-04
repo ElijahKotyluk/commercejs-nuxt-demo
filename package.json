@@ -1,7 +1,7 @@
 {
-  "name": "commerce-demo",
+  "name": "commercejs-nuxt-demo",
   "version": "1.0.0",
-  "description": "My superior Nuxt.js project",
+  "description": "Nuxt demo integrating Commerce.js SDK",
   "author": "Elijah Kotyluk",
   "private": true,
   "scripts": {
