@@ -8,7 +8,7 @@ This guide will walk you through how to use Nuxt.js to list products on a page w
 
 * This guide uses v2 of the Commerce.js SDK
 
-[](assets/CommerceJS_NuxtJS_Storefront.png)
+![](assets/CommerceJS_NuxtJS_Storefront.png)
 
 ## Overview
 The purpose of this guide is to help developers get familiar with using the Commerce.js SDK in conjunction with Nuxt.js. Commerce.js is a powerful eCommerce tool that gives you the ability to build custom eCommerce sites without the trouble of building out a lot of the complex functionality that comes with eCommerce projects. Commerce.js makes it easy for developers of all levels to build a fully customized online store. 
@@ -209,6 +209,15 @@ npm run dev
 
 [Live Demo](https://commercejs-nuxt-demo.herokuapp.com/)
 
+## Conclusion
+Nice work, you've successfully listed your products out using Nuxt.js.
+
+Let's review what we have accommplished in this guide.
+
+* Created a Chec account and added products
+* 
+*
+*
 
 ## Built With
 
