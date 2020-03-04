@@ -26,7 +26,7 @@ The purpose of this guide is to help developers get familiar with using the Comm
 - Yarn or npm
 - [Nuxt.js](https://nuxtjs.org/)
 - [Vuetify](https://vuetifyjs.com/en/)
-- create-nuxt-app CLI (Optional)
+- [create-nuxt-app](https://github.com/nuxt/create-nuxt-app)
 
 ## Prerequisites
 Basic knowldge of Nuxt.js and JavaScript are required for this guide.
@@ -71,7 +71,7 @@ npm install --save @chec/commerce.js
 
 ### 4. Create a minimal [Nuxt plugin](https://nuxtjs.org/guide/plugins#inject-into-vue-instances) with the Commerce.js SDK
 
-Create a new file in the plugins directory of your Nuxt app called `commerce.js`. You will begin this file by importing the Commerce.js SDK at the top of the file, followed by importing `Vue`. Next, inject the Commerce.js SDK with your API key into the `Vue` instance by setting a new property on the `Vue` instance called `$commerce`, which will allow you to access the Commerce.js API through the Vue's instance globally. Once you've done this all [features](https://commercejs.com/docs/overview/getting-started.html#features) of Commerce.js will be accessible on your `Vue` instance. Don't forget to add your new plugin's path to the plugins property located in the `nuxt.config.js` file of your project root so that Nuxt can inject it when building.
+Create a new file in the plugins directory of your Nuxt app called `commerce.js`. You will begin this file by importing the Commerce.js SDK at the top of the file, followed by importing `Vue`. Next, inject the Commerce.js SDK with your API key into the `Vue` instance by setting a new property on the `Vue` instance called `$commerce`, which will allow you to access the Commerce.js SDK through Vue's instance globally. Once you've done this, all [features](https://commercejs.com/docs/overview/getting-started.html#features) of Commerce.js will be accessible on your `Vue` instance. Don't forget to add your new plugin's path to the plugins property located in the `nuxt.config.js` file of your project root so that Nuxt can inject it when building.
 
 
 ```js
