@@ -40,8 +40,22 @@ Basic knowldge of Nuxt.js and JavaScript are required for this guide.
 
 It should be noted that there are two main components, Chec (dashboard) and Commerce.js SDK. Think of Chec as the logic layer, the source of all your customer data, transactions - things of that nature. Think of the SDK as your way to communicate with your data. You'll need to create an account [HERE](https://dashboard.chec.io/signup) - once logged in, navigate to products. The only product data you need to get started is: **Name, Image, Price, Description.**
 
+### 2. Initializing a Nuxt project
 
-### 2. Installing Commerce.js
+To get started with Nuxt, I recommended checking out their [installation guide](https://nuxtjs.org/guide/installation/) and using the [create-nuxt-app](https://github.com/nuxt/create-nuxt-app) scaffolding tool to quickly spin up your project. Below I will list the options I chose when creating this guide.
+
+```js
+// npx: shipped by default since npm v5.2.0
+npx create-nuxt-app <project-name>
+
+// Yarn
+yarn create nuxt-app <project-name>
+```
+
+![create-nuxt-app](https://i.imgur.com/SBuGk2Q.png)
+
+
+### 3. Installing Commerce.js
 
 Use the Commerce.js SDK to access the Chec API data from your application.
 
@@ -55,9 +69,10 @@ yarn add @chec/commerce.js
 npm install --save @chec/commerce.js
 ```
 
-### 3. Create a minimal Commerce.js plugin for your Nuxt app
+### 4. Create a minimal [Nuxt plugin](https://nuxtjs.org/guide/plugins#inject-into-vue-instances) with the Commerce.js SDK
 
-Create a new file in the plugins directory of your Nuxt app called `commerce.js`. You will begin this file by importing the Commerce.js SDK at the top of the file, followed by importing `Vue`. Next, inject the Commerce.js SDK with your API key into the `Vue` instance by setting a new property on the `Vue` instance called `$commerce`, which will allow you to access the Chec API through the Vue's instance globally. Once you've done this all [features](https://commercejs.com/docs/overview/getting-started.html#features) of Commerce.js will be accessible on your `Vue` instance. Don't forget to add your new plugin's path to the plugins property located in the `nuxt.config.js` file of your project root so that Nuxt can inject it when building.
+Create a new file in the plugins directory of your Nuxt app called `commerce.js`. You will begin this file by importing the Commerce.js SDK at the top of the file, followed by importing `Vue`. Next, inject the Commerce.js SDK with your API key into the `Vue` instance by setting a new property on the `Vue` instance called `$commerce`, which will allow you to access the Commerce.js API through the Vue's instance globally. Once you've done this all [features](https://commercejs.com/docs/overview/getting-started.html#features) of Commerce.js will be accessible on your `Vue` instance. Don't forget to add your new plugin's path to the plugins property located in the `nuxt.config.js` file of your project root so that Nuxt can inject it when building.
+
 
 ```js
 // plugins/commerce.js
@@ -74,21 +89,19 @@ module.exports = {
     // ...
     css: [],
     plugins: ['~/plugins/commerce.js'],
-    buidModules: [],
+    buildModules: [],
     // ...
 }
 
 ```
 
-### 4. Create a file in your store directory called `index.js`
+### 5. Create a file in your store directory called `index.js`
 
-In your newly created `store/index.js` file you'll import the `Vue` instance so that you can utilize your new plugin that has been injected into the `Vue` instance. Once this is done, create your Vuex store's state, which will contain an empty array of products by default. Next you will create your store's actions, which will contain a special action specific to Nuxt.js - [nuxtServerInit()](https://nuxtjs.org/guide/vuex-store/#the-nuxtserverinit-action): This action gets called and fills your store with data on the server-side before rendering. This action is asynchronous and will wait for the list of products to be returned from the Commerce.js API. Upon returned results, the action will commit the product data by calling the `setProducts` mutation and passing `products.data`, setting your state's products to the returned products list. 
-
-The last little piece for the store is to write a getter that simply returns the state's list of products when called from your component. 
+In your newly created `store/index.js` file you'll import `Vue` so that you can utilize your new plugin that has been injected into the `Vue` instance. Once this is done, create your Vuex store's state, which will contain an empty array of products by default. Next, you will create your store's actions, which will contain a special action specific to Nuxt.js - [nuxtServerInit()](https://nuxtjs.org/guide/vuex-store/#the-nuxtserverinit-action): This action gets called and fills your store with data on the server-side before rendering. This action is asynchronous and will wait for the list of products to be returned from the Commerce.js API. Upon returned results, the action will commit the product data by calling the `setProducts` mutation and passing `products.data`, setting your state's products to the returned products list. The last little piece for the store is to write a getter that simply returns the state's list of products when called from your component. 
 
 ```js
 // store/index.js
-import { commerce } from '~/plugins/commerce'
+import Vue from 'vue'
 
 export const state = () => ({
   products: []
@@ -96,7 +109,7 @@ export const state = () => ({
 
 export const actions = {
   async nuxtServerInit({ commit }) {
-    const products = await commerce.products.list()
+    const products = await Vue.prototype.$commerce.products.list()
 
     // Pass products.data 
     commit('setProducts', products.data)
@@ -116,7 +129,7 @@ export const getters = {
 }
 ```
 
-### 5. Create a `CommerceItem.vue` component file under your components directory.
+### 6. Create a `CommerceItem.vue` component file under your components directory.
 
 The `components/CommerceItem.vue` component will be used as a dynamic template to display the data for each item in your products list. First, create your script tag that exports a `name` and the `props` of your Vue component. Your component's `props` will contain a `product` object where you will explicitly set it's type and default key/value property pairs. Next, create a basic template that contains some Vuetify components that can be used as a starting point to style and render each individual product's data.
 
@@ -158,7 +171,7 @@ export default {
 <script>
 ```
 
-### 6. Use the `CommerceItem.vue` component and Vuex's mapGetters to display your product list.
+### 7. Use the `CommerceItem.vue` component and Vuex's mapGetters to display your product list.
 
 Inside your pages directory should live an `index.vue` file, if you used **create-nuxt-app** then you'll want to delete all the default filler code provided by the CLI. Inside of the component's script tag import the `mapState` function, followed by the `CommerceItem.vue` component and be sure to add `CommerceItem` to the `components` property of `components/index.vue`. 
 
@@ -195,7 +208,7 @@ export default {
 </script>
 ```
 
-### 7. Run your app!
+### 8. Run your app!
 
 You should now be able to run your Nuxt application and see the products from your store display.
 
