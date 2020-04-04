@@ -233,6 +233,8 @@ Let's review what we have accommplished in this guide.
 * Created a simple Vuex store and rendered your data server-side using nuxtServerInit()
 * Listed your products in your Nuxt application
 
+This guide continues onto (Adding products to a cart with Nuxt.js and Commerce.js) [Adding products to cart](https://github.com/ElijahKotyluk/nuxt-cjs-adding-products).
+
 ## Built With
 
 * [Nuxt.js](https://github.com/nuxt/nuxt.js) - The front-end framework used
